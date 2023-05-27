@@ -46,30 +46,30 @@ app.use(notFound);
 app.use(errorHandler);
 
 /**nodemailer transpoter */
-let transpoter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
+ let transpoter = nodemailer.createTransport({
+     host: "smtp.gmail.com",
+     port: 587,
+   secure: false,
     auth: {
         user: creds.auth.user,
         pass: creds.auth.pass
     }
  })
- 
- app.post('/mail', (req, res, next) => {
+
+app.post('/mail', (req, res, next) => {
     var email = req.body.email
     var message = req.body.message
     var subject = req.body.subject
     var name = req.body.name
     var company = req.body.company
- 
+
     const mailOptions = {
         from: name,
         to: email,
         subject: subject,
         html: `${name} from ${company} <noreplay@${name}.com> <br /> ${message}`
     }
- 
+
     transpoter.sendMail(mailOptions, (err, data) => {
         if(err){
             res.json({
@@ -84,7 +84,7 @@ let transpoter = nodemailer.createTransport({
             console.log("Email Sent"+ data.response)
         }
     })
- })
+})
     transpoter.verify(function(err, success) {
         if(err){
             console.log(err)
@@ -93,7 +93,6 @@ let transpoter = nodemailer.createTransport({
             console.log("Server is ready to take email")
         }
     })
-
 
 
 // USING THE DOTENV FOR IMPORT THE PORT 

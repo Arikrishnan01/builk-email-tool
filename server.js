@@ -42,8 +42,8 @@ app.get('/', (req, res) => {
 app.use('/api/user', userRoutes);
 
 // ERROR HANDLERS
-app.use(notFound);
-app.use(errorHandler);
+// app.use(notFound);
+// app.use(errorHandler);
 
 /**nodemailer transpoter */
  let transpoter = nodemailer.createTransport({
